@@ -17,7 +17,7 @@
 		<h2><a href="<?php esc_url( the_permalink() ); ?>" title="Permalink to <?php the_title(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 	<?php endif; ?>
 
-	<span>Posted on <time datetime="<?php the_time( 'Y-m-d' ); ?>" pubdate><?php echo get_the_date('F j, Y'); ?></time> in 
+	<span class="post-info">Posted on <time datetime="<?php the_time( 'Y-m-d' ); ?>" pubdate><?php echo get_the_date('F j, Y'); ?></time> in 
 	<?php 
 	$categories = get_the_category();
 	$separator = ', ';

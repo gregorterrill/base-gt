@@ -29,6 +29,7 @@
 	<div class="grid-row">
 		<div class="grid-8">.grid-8</div>
 		<div class="grid-2">.grid-2</div>
+		<div class="grid-2">.grid-2</div>
 	</div>
 
 </section>

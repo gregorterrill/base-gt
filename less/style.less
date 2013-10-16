@@ -32,6 +32,7 @@ Do not modify CSS directly - changes should be made to the LESS files and compil
 // 8. Grid 				Basic 12-column grid system classes
 // 9. Content 			Main container styles
 // 10.Forms 			Form element styles
+// 11.Media				Responsive video and images
 
 //------------------------------------------------------------------------------------------------------------------------
 //																										   1. BREAKPOINTS
@@ -56,10 +57,14 @@ Do not modify CSS directly - changes should be made to the LESS files and compil
 //																												2. COLORS
 //------------------------------------------------------------------------------------------------------------------------
 
-@headings: #212121;
-@link: darken(#993333, 20%);
-@footerBG: #666;
-@pageBG: #444;
+
+@footerBG: 	#666;
+@pageBG: 	#444;
+
+@heading: 	#212121;
+@textD: 	#000;
+@textL: 	#FFF;
+@link: 		#6E2525;
 
 //------------------------------------------------------------------------------------------------------------------------
 //																											3. TYPOGRAPHY
@@ -88,11 +93,12 @@ a {
 
 p, li, span {
 	font-family: @sans;
+	color: @textD;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: @serif;
-	color: @headings;
+	color: @heading;
 	margin:0;
 }
 
@@ -102,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 
 html {
 	height:100%;
-	background:@footerBG; // This should be invisible, except on a short page below the footer
+	background:@footerBG; // This should be invisible, except on a really short page below the footer
 }
 body {
 	margin:0;
@@ -219,10 +225,9 @@ footer {
 
 	.grid-12 {@media @sm {width:100%;}}
 
-	// all columns
+	// All columns
 	> div {
-		background:@link; 
-		margin-bottom:1em;
+		background:@link;
 		padding:1em;
 		float:left;
 		width:100%;
@@ -250,8 +255,10 @@ article, section {
 }
 
 article {
-	&.post-listed {margin:1em 0;}
+	&.post-listed {padding-bottom:0;}
 	&.post-single {}
+
+	.post-info {font-style:italic;}
 }
 
 section {
@@ -262,7 +269,7 @@ section {
 	&.page-search-results {}
 
 	&.page-container {}
-	&.post-container {}
+	&.post-container {padding:0;}
 }
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -270,3 +277,26 @@ section {
 //------------------------------------------------------------------------------------------------------------------------
 
 form {}
+
+//------------------------------------------------------------------------------------------------------------------------
+//																												11. MEDIA
+//------------------------------------------------------------------------------------------------------------------------
+
+// Responsive YouTube embeds
+.embed-container {
+    height: 0;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    &.embed-16-9 { padding-bottom: 56.25%; } // 16:9;
+    &.embed-4-3 { padding-bottom: 75%; } // 4:3;
+
+    iframe {
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	}
+}
