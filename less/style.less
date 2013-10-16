@@ -1,10 +1,10 @@
 /*
-Theme Name: 	BaseGT
-Theme URI: 		
-Description: 	
-Version: 		1.2
+Theme Name: 	Base-GT
+Theme URI: 		http://www.gregorterrill.com
+Description: 	Boilerplate WP theme
+Version: 		1.2.1
 Author: 		Gregor Terrill
-Author URI: 	http://www.betterwebsites.ca
+Author URI: 	http://www.gregorterrill.com
 
 Do not modify CSS directly - changes should be made to the LESS files and compiled!
 */
@@ -18,20 +18,24 @@ Do not modify CSS directly - changes should be made to the LESS files and compil
 // Use better box model (http://www.paulirish.com/2012/box-sizing-border-box-ftw/)
 * { .box-sizing(border-box); }
 
-//------------------------------------------------------------------------------------------------------------------------CONTENTS
+//------------------------------------------------------------------------------------------------------------------------
+//																										 TABLE OF CONTENTS
+//------------------------------------------------------------------------------------------------------------------------
 
-// Breakpoints 		Mobile first breakpoint definitions
-// Colors 			Variable definitions for site colors
-// Typography 		Font-face declarations, variable definitions for site fonts
-// Root 			HTML and BODY styles, classes for full and bound width elements
-// Header 			Banner and logo	styles	
-// Nav 				Main nav menu styles
-// Grid 			Basic 12-column grid system classes
-// Content 			Main container styles
-// Forms 			Form element styles
-// Footer 			Footer element styles
+// 1. Breakpoints 		Mobile first breakpoint definitions
+// 2. Colors 			Variable definitions for site colors
+// 3. Typography 		Font-face declarations, variable definitions for site fonts
+// 4. Base Elements		HTML and BODY styles, classes for full and bound width elements
+// 5. Header 			Banner and logo	styles
+// 6. Footer 			Footer element styles
+// 7. Nav 				Main nav menu styles
+// 8. Grid 				Basic 12-column grid system classes
+// 9. Content 			Main container styles
+// 10.Forms 			Form element styles
 
-//------------------------------------------------------------------------------------------------------------------------BREAKPOINTS
+//------------------------------------------------------------------------------------------------------------------------
+//																										   1. BREAKPOINTS
+//------------------------------------------------------------------------------------------------------------------------
 
 @xs: ~"only screen and (max-width: 479px)";		// 0-479
 @sm: ~"only screen and (min-width: 480px)";		// 480+
@@ -48,16 +52,21 @@ Do not modify CSS directly - changes should be made to the LESS files and compil
 @media @lg {body:after {content:'lg';display:none;}}
 @media @xl {body:after {content:'xl';display:none;}}
 
-//------------------------------------------------------------------------------------------------------------------------COLORS
+//------------------------------------------------------------------------------------------------------------------------
+//																												2. COLORS
+//------------------------------------------------------------------------------------------------------------------------
 
 @headings: #212121;
 @link: darken(#993333, 20%);
 @footerBG: #666;
 @pageBG: #444;
 
-//------------------------------------------------------------------------------------------------------------------------TYPOGRAPHY
+//------------------------------------------------------------------------------------------------------------------------
+//																											3. TYPOGRAPHY
+//------------------------------------------------------------------------------------------------------------------------
 
 // Custom fonts
+/*
 @font-face {
     font-family: 'FontNameHere';
     src: url('font/FontNameHere.eot') format('eot'), 
@@ -66,6 +75,7 @@ Do not modify CSS directly - changes should be made to the LESS files and compil
     font-weight: normal;
     font-style: normal;
 }
+*/
 
 // Font stacks (http://cssfontstack.com)
 @serif: Georgia, Times, "Times New Roman", serif;
@@ -86,7 +96,10 @@ h1, h2, h3, h4, h5, h6 {
 	margin:0;
 }
 
-//------------------------------------------------------------------------------------------------------------------------ROOT
+//------------------------------------------------------------------------------------------------------------------------
+//																										 4. BASE ELEMENTS
+//------------------------------------------------------------------------------------------------------------------------
+
 html {
 	height:100%;
 	background:@footerBG; // This should be invisible, except on a short page below the footer
@@ -109,7 +122,10 @@ body {
 	margin-right: auto !important;
 }
 
-//------------------------------------------------------------------------------------------------------------------------HEADER
+//------------------------------------------------------------------------------------------------------------------------
+//																												5. HEADER
+//------------------------------------------------------------------------------------------------------------------------
+
 header {
 	background: lighten(@pageBG, 25%);
 	padding:2em 0;
@@ -122,13 +138,24 @@ header {
 			background:url(img/site-logo.png) no-repeat #FFF;
 			height:100px;
 			width:500px;
-
 		}
 	}
 }
 
-//------------------------------------------------------------------------------------------------------------------------NAV
-nav {
+//------------------------------------------------------------------------------------------------------------------------
+//																												6. FOOTER
+//------------------------------------------------------------------------------------------------------------------------
+
+footer {
+	background:@footerBG;
+	padding:2em 0;
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+//																											7. NAVIGATION
+//------------------------------------------------------------------------------------------------------------------------
+
+.nav-main {
 	.clearfix;
 	background: lighten(@pageBG, 20%);
 
@@ -173,12 +200,26 @@ nav {
 	}
 	
 }
-//------------------------------------------------------------------------------------------------------------------------GRID
+//------------------------------------------------------------------------------------------------------------------------
+//																										   8. GRID SYSTEM
+//------------------------------------------------------------------------------------------------------------------------
 
-.grid {
+.grid-row {
 	width:100%;
 	.clearfix;
 
+	.grid-3  {@media @sm {width:25%;}}
+	.grid-6  {@media @sm {width:50%;}}
+	.grid-9  {@media @sm {width:75%;}}
+
+	.grid-2  {@media @sm {width:16.666667%;}}
+	.grid-4  {@media @sm {width:33.333333%;}}
+	.grid-8  {@media @sm {width:66.666667%;}}
+	.grid-10 {@media @sm {width:83.333333%;}}
+
+	.grid-12 {@media @sm {width:100%;}}
+
+	// all columns
 	> div {
 		background:@link; 
 		margin-bottom:1em;
@@ -189,18 +230,12 @@ nav {
 		&:last-child {float:right;} // Fix for sub-pixel issue
 		.clearfix;
 	}
-
-	.grid-3 {@media @sm {width:25%;}}
-	.grid-6 {@media @sm {width:50%;}}
-	.grid-9 {@media @sm {width:75%;}}
-
-	.grid-4 {@media @sm {width:33.333333%;}}
-	.grid-8 {@media @sm {width:66.666667%;}}
-
-	.grid-12 {@media @sm {width:100%;}}
 }
 
-//------------------------------------------------------------------------------------------------------------------------CONTENT
+//------------------------------------------------------------------------------------------------------------------------
+//																									  9. CONTENT SECTIONS
+//------------------------------------------------------------------------------------------------------------------------
+
 .main {
 	background:lighten(@pageBG, 50%);
 	padding:1em 0;
@@ -211,33 +246,27 @@ article, section {
 	background:lighten(@pageBG, 60%);
 	padding:1em;
 	margin:0;
+	.clearfix;
+}
 
+article {
 	&.post-listed {margin:1em 0;}
+	&.post-single {}
 }
 
-//------------------------------------------------------------------------------------------------------------------------FORMS
+section {
+	&.page-404 {}
+	&.page-archives {}
+	&.page-homepage {}
+	&.page-index {}
+	&.page-search-results {}
 
-form p {clear:left; .clearfix;}
-label {
-	width:300px;
-	display:block;
-	float:left;
-	small {display:block;}
-}
-input, select, textarea {width:300px;}
-input[type='checkbox'] {width:auto;}
-.wpcf7-list-item {display:block;}
-.wpcf7-form-control-wrap {.clearfix; float:left;}
-
-input[type='submit'],button {
-	background:black;
-	color:white;
-	border:none;
-	padding:1em;
+	&.page-container {}
+	&.post-container {}
 }
 
-//------------------------------------------------------------------------------------------------------------------------FOOTER
-footer {
-	background:@footerBG;
-	padding:2em 0;
-}
+//------------------------------------------------------------------------------------------------------------------------
+//																												10. FORMS
+//------------------------------------------------------------------------------------------------------------------------
+
+form {}
