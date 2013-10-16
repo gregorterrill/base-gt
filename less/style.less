@@ -1,0 +1,243 @@
+/*
+Theme Name: 	BaseGT
+Theme URI: 		
+Description: 	
+Version: 		1.2
+Author: 		Gregor Terrill
+Author URI: 	http://www.betterwebsites.ca
+
+Do not modify CSS directly - changes should be made to the LESS files and compiled!
+*/
+
+// Normalize 2.1.3 (http://necolas.github.io/normalize.css/)
+@import "normalize.less";
+
+// LESS mixins (mostly from Bootstrap 2, some custom)
+@import "mixins.less";
+
+// Use better box model (http://www.paulirish.com/2012/box-sizing-border-box-ftw/)
+* { .box-sizing(border-box); }
+
+//------------------------------------------------------------------------------------------------------------------------CONTENTS
+
+// Breakpoints 		Mobile first breakpoint definitions
+// Colors 			Variable definitions for site colors
+// Typography 		Font-face declarations, variable definitions for site fonts
+// Root 			HTML and BODY styles, classes for full and bound width elements
+// Header 			Banner and logo	styles	
+// Nav 				Main nav menu styles
+// Grid 			Basic 12-column grid system classes
+// Content 			Main container styles
+// Forms 			Form element styles
+// Footer 			Footer element styles
+
+//------------------------------------------------------------------------------------------------------------------------BREAKPOINTS
+
+@xs: ~"only screen and (max-width: 479px)";		// 0-479
+@sm: ~"only screen and (min-width: 480px)";		// 480+
+@md: ~"only screen and (min-width: 768px)";		// 768+
+@lg: ~"only screen and (min-width: 1024px)";	// 1024+
+@xl: ~"only screen and (min-width: 1280px)";	// 1280+
+
+// 	Add hook so javascript can check what breakpoint we're at using the below code:
+// 		var size = window.getComputedStyle(document.body,':after').getPropertyValue('content');
+// 		if (size.indexOf("sm") !=-1) { ...breakpoint specific code here... }
+@media @xs {body:after {content:'xs';display:none;}}
+@media @sm {body:after {content:'sm';display:none;}}
+@media @md {body:after {content:'md';display:none;}}
+@media @lg {body:after {content:'lg';display:none;}}
+@media @xl {body:after {content:'xl';display:none;}}
+
+//------------------------------------------------------------------------------------------------------------------------COLORS
+
+@headings: #212121;
+@link: darken(#993333, 20%);
+@footerBG: #666;
+@pageBG: #444;
+
+//------------------------------------------------------------------------------------------------------------------------TYPOGRAPHY
+
+// Custom fonts
+@font-face {
+    font-family: 'FontNameHere';
+    src: url('font/FontNameHere.eot') format('eot'), 
+    	url('font/FontNameHere.woff') format('woff'), 
+    	url('font/FontNameHere.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Font stacks (http://cssfontstack.com)
+@serif: Georgia, Times, "Times New Roman", serif;
+@sans: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+@mono: Consolas, monaco, monospace;
+
+a {
+	.link( @link, darken(@link,20%) );
+}
+
+p, li, span {
+	font-family: @sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: @serif;
+	color: @headings;
+	margin:0;
+}
+
+//------------------------------------------------------------------------------------------------------------------------ROOT
+html {
+	height:100%;
+	background:@footerBG; // This should be invisible, except on a short page below the footer
+}
+body {
+	margin:0;
+	font-family:@sans;
+	background:@pageBG;
+}
+
+// These styles can be applied to any element, allowing a mixture of bound and full-width elements
+.bound {
+	max-width:1000px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+.full { 
+	max-width:100% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+//------------------------------------------------------------------------------------------------------------------------HEADER
+header {
+	background: lighten(@pageBG, 25%);
+	padding:2em 0;
+
+	a.logo {
+		display:block;
+
+		h1 {
+			.hide-text;
+			background:url(img/site-logo.png) no-repeat #FFF;
+			height:100px;
+			width:500px;
+
+		}
+	}
+}
+
+//------------------------------------------------------------------------------------------------------------------------NAV
+nav {
+	.clearfix;
+	background: lighten(@pageBG, 20%);
+
+	ul {
+		margin:0;
+		padding:0;
+		.clearfix;
+
+		li {
+			list-style-type:none;
+			float:left;
+			width:100%;
+			position:relative;
+			@media @sm {width:auto;}
+
+			&.current-menu-item, &.current-menu-ancestor {background:@link !important; >a {.link(white,white);}}
+
+			a {
+				display:block; 
+				width:100%;
+				text-align:center;
+				padding:1em;
+				
+			}
+		}
+
+		.sub-menu li {width:100%; background: lighten(@pageBG, 10%);}
+
+		// On small or higher, hide the submenus and only show them on hover
+		@media @sm { 
+			.sub-menu {display:none;}
+			li:hover .sub-menu {
+				display:block; 
+				position:absolute; 
+				z-index:10; 
+				top:51px; 
+				left:0;
+				min-width:300px;
+				a {text-align:left;}
+			}
+		}
+	}
+	
+}
+//------------------------------------------------------------------------------------------------------------------------GRID
+
+.grid {
+	width:100%;
+	.clearfix;
+
+	> div {
+		background:@link; 
+		margin-bottom:1em;
+		padding:1em;
+		float:left;
+		width:100%;
+		&:nth-child(even) {background:spin(@link,20%);}
+		&:last-child {float:right;} // Fix for sub-pixel issue
+		.clearfix;
+	}
+
+	.grid-3 {@media @sm {width:25%;}}
+	.grid-6 {@media @sm {width:50%;}}
+	.grid-9 {@media @sm {width:75%;}}
+
+	.grid-4 {@media @sm {width:33.333333%;}}
+	.grid-8 {@media @sm {width:66.666667%;}}
+
+	.grid-12 {@media @sm {width:100%;}}
+}
+
+//------------------------------------------------------------------------------------------------------------------------CONTENT
+.main {
+	background:lighten(@pageBG, 50%);
+	padding:1em 0;
+	.clearfix;
+}
+
+article, section {
+	background:lighten(@pageBG, 60%);
+	padding:1em;
+	margin:0;
+
+	&.post-listed {margin:1em 0;}
+}
+
+//------------------------------------------------------------------------------------------------------------------------FORMS
+
+form p {clear:left; .clearfix;}
+label {
+	width:300px;
+	display:block;
+	float:left;
+	small {display:block;}
+}
+input, select, textarea {width:300px;}
+input[type='checkbox'] {width:auto;}
+.wpcf7-list-item {display:block;}
+.wpcf7-form-control-wrap {.clearfix; float:left;}
+
+input[type='submit'],button {
+	background:black;
+	color:white;
+	border:none;
+	padding:1em;
+}
+
+//------------------------------------------------------------------------------------------------------------------------FOOTER
+footer {
+	background:@footerBG;
+	padding:2em 0;
+}
